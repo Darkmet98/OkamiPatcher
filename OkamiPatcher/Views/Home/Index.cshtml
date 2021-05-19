@@ -1,0 +1,148 @@
+﻿@using ElectronNET.API
+@model OkamiPatcher.Controllers.HomeController
+
+@{
+    ViewBag.Title = "Parcheador Okami HD";
+    //Electron.WindowManager.BrowserWindows.First().RemoveMenu();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta lang="es">
+    <meta charset="utf-8" />
+    <title>Okami en español</title>
+    <meta name="description" value="Parcheador para traducir Okami HD de PC y Switch al español.">
+    <link rel="stylesheet" href="@Url.Content("~/css/bootstrap/bootstrap.min.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/Style.css")" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <script>
+        let $ = require('jquery');
+        let jQuery = require('jquery');
+        require('popper.js');
+        require('bootstrap');
+    </script>
+</head>
+<body class="body_index">
+    <div class="velo m-0 p-0"></div>
+    <div class="container-fluid m-0 p-0 fondo">
+        <nav class="navbar m-0 p-0 w-100 px-2 navbar-expand-lg">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            </button>
+            <a class="navbar-brand" href="https://store.steampowered.com/app/587620/Okami_HD/" target="_blank">
+                <img id="logo" class="logo img-fluid" src="@Url.Content("~/img/Okami_logo.gif")" />
+            </a><span class="textJapo"><h3>en español</h3></span>
+            <a href="https://tradusquare.es" target="_blank"><img class="logo img-fluid" src="https://tradusquare.es/images/logo.webp"></a>
+            <img class="logo img-fluid" src="@Url.Content("~/img/logoSwitchCord.png")">
+        </nav>
+        <div class="row m-3 contFondo subirArriba retraso1sec">
+            <div class="col-md-2 col-lg-2 p-0 m-0"></div>
+            <div class="enrolladoIzq">
+                <img src="img/enrollado.png" />
+            </div>
+            <div class="col-md-7 my-4 p-5 text-center text-dark fondoPergamino fondo1 rounded retraso2sec textJapo">
+                <h2 id="steam" class="textJapo m-0">Parchear versión de Steam</h2>
+                <h2 id="switch" class="mt-4">Parchear versión de Switch</h2>
+                <h2 id="epilogue" class="mt-4">Ver epílogo</h2>
+                <h2 id="credits" class="mt-4">Créditos</h2>
+                <h2 id="exit" class="mt-4">Salir</h2>
+
+            </div>
+            <div class="enrolladoDer retraso2sec">
+                <img src="@Url.Content("~/img/enrollado.png")" />
+            </div>
+        </div>
+    </div>
+    <script>
+        const { ipcRenderer } = require("electron");
+        $(document).ready(function() {
+
+            $("#exit").click(function() {
+                closeWindow();
+            });
+
+            $("#steam").click(function () {
+                openWindow("Steam");
+            });
+
+            $("#switch").click(function () {
+                openWindow("Switch");
+            });
+
+            $("#epilogue").click(function () {
+                openWindow("Epilogue");
+            });
+
+            $("#credits").click(function () {
+                openWindow("Credits");
+            });
+
+
+            @*$.ajax({ url: "@Html.Raw(@Url.Action("CheckInternet", "Home"))" }).done(function(data) {
+                if (!data.check) {
+                    $("#internetWindow").modal('show');
+                }
+            });
+
+            $("#fileSearch").click(function(evt) {
+                ipcRenderer.send("select-rom");
+            });
+            $("#patch").click(function() {
+                let url = "@Html.Raw(@Url.Action("PatchGame", "Home", new {file = "change"}))";
+                url = url.replace("change", $("#fileSelected").val());
+                $("#progressTitle").text("Aplicando parche.");
+                $("#progressText").text("Se está aplicando el parche...");
+                $("#progressWindow").modal('show');
+
+                $.ajax({ url: url }).done(function(data) {
+                    $("#progressWindow").modal('hide');
+                    if (data.check) {
+                        $("#successWindow").modal('show');
+                    } else {
+                        $("#infoTitle").text("Error al parchear.");
+                        $("#infoText").text("La rom de Nintendo DS introducida no es correcta o se ha producido un error al parchear.");
+                        $("#infoWindow").modal('show');
+                    }
+                });
+            });
+            ipcRenderer.on("select-rom-reply",
+                (sender, path) => {
+                    if (`${path}` === "undefined")
+                        return;
+
+                    $("#fileSelected").val(`${path}`);
+                    let url = "@Html.Raw(@Url.Action("CheckGame", "Home", new {file = "change"}))";
+                    url = url.replace("change", `${path}`);
+
+                    $.ajax({ url: url }).done(function(data) {
+                        if (data.check) {
+                            $("#fileSelected").css('background-color', '#68f791');
+                            $("#patch").prop("disabled", false);
+                        } else {
+                            $("#fileSelected").css('background-color', '#f77168');
+                            $("#patch").prop("disabled", true);
+                            $("#infoTitle").text("Error verificando archivos.");
+                            $("#infoText").text("La rom de Nintendo DS introducida no es correcta.");
+                            $("#infoWindow").modal('show');
+                        }
+
+                    });
+
+                });*@
+        });
+
+        function closeWindow() {
+            $("body").addClass('fade-out');
+            setTimeout(() => { window.close(); }, 1000);
+        }
+
+        function openWindow(urlPassed) {
+            let urlGenerated = "@Html.Raw(@Url.Action("OpenView", "Home", new {url = "replaceme"}))";
+            urlGenerated = urlGenerated.replace("replaceme", urlPassed);
+            $.ajax({ url: urlGenerated });
+        }
+
+    </script>
+</body>
+</html>

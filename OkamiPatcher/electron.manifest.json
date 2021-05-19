@@ -1,0 +1,36 @@
+{
+  "executable": "OkamiPatcher",
+  "splashscreen": {
+    "imageFile": ""
+  },
+  "name": "OkamiPatcher",
+  "author": "",
+  "singleInstance": true,
+  "environment": "Production",
+  "build": {
+    "appId": "com.OkamiPatcher.app",
+    "productName": "OkamiPatcher",
+    "copyright": "Copyright © 2020",
+    "icon": "../../../icon.ico",
+    "buildVersion": "1.0.0",
+    "compression": "maximum",
+    "directories": {
+      "output": "../../../bin/Desktop"
+    },
+    "extraResources": [
+      {
+        "from": "./bin",
+        "to": "bin",
+        "filter": [ "**/*" ]
+      }
+    ],
+    "files": [
+      {
+        "from": "./ElectronHostHook/node_modules",
+        "to": "ElectronHostHook/node_modules",
+        "filter": [ "**/*" ]
+      },
+      "**/*"
+    ]
+  }
+}

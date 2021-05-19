@@ -1,0 +1,98 @@
+﻿@using ElectronNET.API
+@model OkamiPatcher.Controllers.SwitchController
+
+@{ 
+    ViewBag.Title = "Parcheador Okami HD - Edición Nintendo Switch";
+    //Electron.WindowManager.BrowserWindows.First().RemoveMenu();
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta lang="es">
+    <meta charset="utf-8" />
+    <title>Parcheador Okami HD - Edición Nintendo Switch</title>
+    <meta name="description" value="Parcheador para traducir Okami HD de PC y Switch al español.">
+    <link rel="stylesheet" href="@Url.Content("~/css/bootstrap/bootstrap.min.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/Style.css")" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <script>let $ = require('jquery');
+    let jQuery = require('jquery');
+    require('popper.js');
+    require('bootstrap');</script>
+</head>
+<body class="body_index">
+<div class="container-fluid m-0 p-0 fondo">
+    <nav class="navbar m-0 p-0 w-100 px-2 navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        </button>
+        <a class="navbar-brand" href="https://store.steampowered.com/app/587620/Okami_HD/" target="_blank">
+            <img id="logo" class="logo img-fluid" src="@Url.Content("~/img/Okami_logo.gif")" />
+        </a><span class="textJapo"><h3>en español</h3></span>
+        <a href="https://tradusquare.es" target="_blank"><img class="logo img-fluid" src="https://tradusquare.es/images/logo.webp"></a>
+        <img class="logo img-fluid" src="@Url.Content("~/img/logoSwitchCord.png")">
+    </nav>
+    <div class="row m-3 contFondo">
+        <div class="col-md-1 col-lg-1 p-0 m-0"></div>
+        <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 enrolladoIzq">
+            <img src="img/enrollado2.png" class="w-100 h-100" />
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mt-4 p-5 text-center text-dark fondoPergamino fondo2 rounded textJapo">
+            <h2 class="m-0">Parchea tu copia original de Switch</h2>
+            <img class="img-fluid separador" src="img/separador.png" />
+            <div class="alert alert-danger">Para extraer el juego necesitas mínimo 10GB libres en tu consola Nintendo Switch. En PC necesitas más de 20GB libres para crear el parche del juego.</div>
+            <p>Este parche es compatible para copias originales de Okami para Nintendo Switch, tanto en versión física como en versión digital. Para saber cómo conseguir un dump legítimo de tu copia, lee los siguientes tutoriales:</p>
+            <ol class="text-left">
+                <li>
+                    >>Tutorial para extraer keys de tu Nintendo Switch<<
+                </li>
+                <li>
+                    >>Tutorial para extraer NSP y XCI<<
+                </li>
+            </ol>
+            <img class="img-fluid separador w-75" src="img/separador.png" />
+            <form name="eligeCarpeta" class="px-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="juego">Selecciona el dump de tu copia original</label>
+                        <div class="input-group">
+                            <input class="form-control" name="juego" type="text" placeholder="Juego físico: .xci. Juego digital: .nsp"></input>
+                            <div class="input-group-append">
+                                <span onclick="alert('Archivo seleccionado')" class="btn btn-secondary input-group-text" id="examinar">Examinar</span>
+                            </div>
+                        </div>
+                        <label class="text-danger text-left">Archivo no válido. Puede que no se trate de un dump del juego original.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="keys">Selecciona el archivo de keys extraído de tu consola Nintendo Switch</label>
+                        <div class="input-group">
+                            <input class="form-control" name="keys" type="text" placeholder="Juego físico: .xci. Juego digital: .nsp"></input>
+                            <div class="input-group-append">
+                                <span onclick="alert('Archivo seleccionado')" class="btn btn-secondary input-group-text" id="examinar">Examinar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="col mt-4">
+                <a id="exit"><h2>Cerrar ventana</h2></a>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 enrolladoDer">
+            <img src="img/enrollado2.png" class="w-100 h-100" />
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $("#exit").click(function () {
+            $("body").addClass('fade-out');
+            setTimeout(() => { window.close(); }, 1000);
+        });
+    });
+</script>
+</body>
+</html>

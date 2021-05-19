@@ -1,0 +1,213 @@
+﻿@using ElectronNET.API
+@model OkamiPatcher.Controllers.SteamController
+
+@{ 
+    ViewBag.Title = "Parcheador Okami HD - Edición Steam";
+    //Electron.WindowManager.BrowserWindows.First().RemoveMenu();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta lang="es">
+    <meta charset="utf-8" />
+    <title>Parcheador Okami HD - Edición Steam</title>
+    <meta name="description" value="Parcheador para traducir Okami HD de PC y Switch al español.">
+    <link rel="stylesheet" href="@Url.Content("~/css/bootstrap/bootstrap.min.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/Style.css")" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <script>let $ = require('jquery');
+    let jQuery = require('jquery');
+    require('popper.js');
+    require('bootstrap');</script>
+</head>
+<body class="body_index">
+<div class="container-fluid m-0 p-0 fondo">
+    <nav class="navbar m-0 p-0 w-100 px-2 navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        </button>
+        <a class="navbar-brand" href="https://store.steampowered.com/app/587620/Okami_HD/" target="_blank">
+            <img id="logo" class="logo img-fluid" src="@Url.Content("~/img/Okami_logo.gif")" />
+        </a><span class="textJapo"><h3>en español</h3></span>
+        <a href="https://tradusquare.es" target="_blank"><img class="logo img-fluid" src="https://tradusquare.es/images/logo.webp"></a>
+        <img class="logo img-fluid" src="@Url.Content("~/img/logoSwitchCord.png")">
+    </nav>
+    <div class="row m-3 contFondo">
+        <div class="col-md-2 col-lg-2 p-0 m-0"></div>
+        <div class="enrolladoIzq">
+            <img src="img/enrollado2.png" />
+        </div>
+        <div class="col-md-7 my-4 p-5 text-center text-dark fondoPergamino fondo2 rounded textJapo">
+            <h2 class="m-0">Parchea tu copia original de Steam</h2>
+            <img class="img-fluid separador" src="img/separador.png" />
+            <form name="eligeCarpeta" class="px-5">
+                <label for="">Selecciona el directorio de instalación del juego</label>
+                <div class="input-group">
+                    <input class="form-control" id="ruta" type="text" placeholder="Ejemplo: C:/User/XXX/Steam/steamaps/ID"/>
+                    <div class="input-group-append">
+                        <span class="btn btn-secondary input-group-text" id="examinar">Examinar</span>
+                    </div>
+                </div>
+            </form>
+            <div class="col mt-4">
+                <a id="exit"><h2>Cerrar ventana</h2></a>
+            </div>
+        </div>
+        <div class="enrolladoDer">
+            <img src="img/enrollado2.png" />
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="gameNotFoundModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Juego no reconocido</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>La carpeta seleccionada no contiene los archivos de Ōkami HD o está dañado.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="SearchFolder()">Seleccionar de nuevo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="progressModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ProgressTitle"></h5>
+            </div>
+            <div class="modal-body">
+                <span id="ProgressText"></span>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div class="modal fade" id="errorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Se ha producido un error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span id="ErrorText"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Parche aplicado con éxito</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span>Se ha aplicado el parche con éxito. Ya puedes iniciar el juego.</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const { ipcRenderer } = require("electron");
+
+    $(document).ready(function () {
+
+        $("#exit").click(function () {
+            $("body").addClass('fade-out');
+            setTimeout(() => { window.close(); }, 1000);
+        });
+
+        $("#examinar").click(function(evt) {
+            SearchFolder();
+        });
+
+        ipcRenderer.on("select-game-reply",
+            (sender, path) => {
+                if (`${path}` === "undefined")
+                    return;
+                $("#ruta").val(`${path}`);
+                let url = "@Html.Raw(@Url.Action("CheckGame", "Steam"))";
+
+                $.ajax({ url: url }).done(function(data) {
+                    DownloadPatch();
+                }).fail(function () {
+                    $("#gameNotFoundModal").modal('show');
+                });
+            });
+
+    });
+
+    function SearchFolder() {
+        ipcRenderer.send("select-gameFolder");
+    }
+
+    function DownloadPatch() {
+        $("#ProgressTitle").text("Descargando el parche.");
+        $("#ProgressText").text("Descargando, espere...");
+        $("#progressModal").modal('show');
+
+        $.ajax({ url: "@Html.Raw(@Url.Action("DownloadPatch", "Steam"))" }).done(function(data) {
+            ExtractPatch();
+
+        }).fail(function (data) {
+            ShowError(data.responseJSON.detail);
+        });
+    }
+
+    function ExtractPatch() {
+        $("#ProgressTitle").text("Extrayendo  el parche.");
+        $("#ProgressText").text("Extrayendo el parche, espere...");
+
+        $.ajax({ url: "@Html.Raw(@Url.Action("ExtractPatch", "Steam"))" }).done(function(data) {
+            PatchingGame();
+        }).fail(function (data) {
+            ShowError(data.responseJSON.detail);
+        });
+    }
+
+    function PatchingGame() {
+        $("#ProgressTitle").text("Instalando la traducción.");
+        $("#ProgressText").text("Parcheando archivos, espere...");
+
+        $.ajax({ url: "@Html.Raw(@Url.Action("PatchGame", "Steam"))" }).done(function(data) {
+            $("#progressModal").modal('hide');
+            $("#successModal").modal('show');
+        }).fail(function (data) {
+            ShowError(data.responseJSON.detail);
+        });
+    }
+
+    function ShowError(error) {
+        $("#progressModal").modal('hide');
+        $("#ErrorText").text(error);
+        $("#errorModal").modal('show');
+    }
+</script>
+</body>
+</html>
