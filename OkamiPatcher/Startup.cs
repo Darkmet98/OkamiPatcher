@@ -55,7 +55,7 @@ namespace OkamiPatcher
             });
 
             browserWindow.OnReadyToShow += () => browserWindow.Show();
-            browserWindow.SetTitle("Parcheador SMT Devil Survivor");
+            browserWindow.SetTitle("Parcheador Okami HD");
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@using ElectronNET.API
 @model OkamiPatcher.Controllers.SwitchController
 
-@{ 
+@{
     ViewBag.Title = "Parcheador Okami HD - Edición Nintendo Switch";
     //Electron.WindowManager.BrowserWindows.First().RemoveMenu();
 
@@ -18,81 +18,234 @@
     <link rel="stylesheet" href="@Url.Content("~/css/Style.css")" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
-    <script>let $ = require('jquery');
+    <script>
+    let $ = require('jquery');
     let jQuery = require('jquery');
     require('popper.js');
     require('bootstrap');</script>
 </head>
 <body class="body_index">
-<div class="container-fluid m-0 p-0 fondo">
-    <nav class="navbar m-0 p-0 w-100 px-2 navbar-expand-lg">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        </button>
-        <a class="navbar-brand" href="https://store.steampowered.com/app/587620/Okami_HD/" target="_blank">
-            <img id="logo" class="logo img-fluid" src="@Url.Content("~/img/Okami_logo.gif")" />
-        </a><span class="textJapo"><h3>en español</h3></span>
-        <a href="https://tradusquare.es" target="_blank"><img class="logo img-fluid" src="https://tradusquare.es/images/logo.webp"></a>
-        <img class="logo img-fluid" src="@Url.Content("~/img/logoSwitchCord.png")">
-    </nav>
-    <div class="row m-3 contFondo">
-        <div class="col-md-1 col-lg-1 p-0 m-0"></div>
-        <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 enrolladoIzq">
-            <img src="img/enrollado2.png" class="w-100 h-100" />
-        </div>
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mt-4 p-5 text-center text-dark fondoPergamino fondo2 rounded textJapo">
-            <h2 class="m-0">Parchea tu copia original de Switch</h2>
-            <img class="img-fluid separador" src="img/separador.png" />
-            <div class="alert alert-danger">Para extraer el juego necesitas mínimo 10GB libres en tu consola Nintendo Switch. En PC necesitas más de 20GB libres para crear el parche del juego.</div>
-            <p>Este parche es compatible para copias originales de Okami para Nintendo Switch, tanto en versión física como en versión digital. Para saber cómo conseguir un dump legítimo de tu copia, lee los siguientes tutoriales:</p>
-            <ol class="text-left">
-                <li>
-                    >>Tutorial para extraer keys de tu Nintendo Switch<<
-                </li>
-                <li>
-                    >>Tutorial para extraer NSP y XCI<<
-                </li>
-            </ol>
-            <img class="img-fluid separador w-75" src="img/separador.png" />
-            <form name="eligeCarpeta" class="px-5">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="juego">Selecciona el dump de tu copia original</label>
-                        <div class="input-group">
-                            <input class="form-control" name="juego" type="text" placeholder="Juego físico: .xci. Juego digital: .nsp"></input>
-                            <div class="input-group-append">
-                                <span onclick="alert('Archivo seleccionado')" class="btn btn-secondary input-group-text" id="examinar">Examinar</span>
+    <div class="container-fluid m-0 p-0 fondo">
+        <nav class="navbar m-0 p-0 w-100 px-2 navbar-expand-lg">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            </button>
+            <a class="navbar-brand" href="https://store.steampowered.com/app/587620/Okami_HD/" target="_blank">
+                <img id="logo" class="logo img-fluid" src="@Url.Content("~/img/Okami_logo.gif")" />
+            </a><span class="textJapo"><h3>en español</h3></span>
+            <a href="https://tradusquare.es" target="_blank"><img class="logo img-fluid" src="https://tradusquare.es/images/logo.webp"></a>
+            <img class="logo img-fluid" src="@Url.Content("~/img/logoSwitchCord.png")">
+        </nav>
+        <div class="row m-3 contFondo">
+            <div class="col-md-1 col-lg-1 p-0 m-0"></div>
+            <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 enrolladoIzq">
+                <img src="img/enrollado2.png" class="w-100 h-100" />
+            </div>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mt-4 p-5 text-center text-dark fondoPergamino fondo2 rounded textJapo">
+                <h2 class="m-0">Parchea tu copia original de Switch</h2>
+                <img class="img-fluid separador" src="img/separador.png" />
+                <div class="alert alert-danger">Para extraer el juego necesitas mínimo 10GB libres en tu consola Nintendo Switch. En PC necesitas más de 20GB libres para crear el parche del juego.</div>
+                <p>Este parche es compatible para copias originales de Okami para Nintendo Switch, tanto en versión física como en versión digital. Para saber cómo conseguir un dump legítimo de tu copia, lee los siguientes tutoriales:</p>
+                <ol class="text-left">
+                    <li>
+                        >>Tutorial para extraer keys de tu Nintendo Switch<<
+                    </li>
+                    <li>
+                        >>Tutorial para extraer NSP y XCI<<
+                    </li>
+                </ol>
+                <img class="img-fluid separador w-75" src="img/separador.png" />
+                <form name="eligeCarpeta" class="px-5">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Selecciona el dump de tu copia original</label>
+                            <div class="input-group">
+                                <input class="form-control" name="juego" type="text" placeholder="Juego físico: .xci. Juego digital: .nsp" id="gamePath" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary input-group-text" id="searchGame">Examinar</button>
+                                </div>
                             </div>
                         </div>
-                        <label class="text-danger text-left">Archivo no válido. Puede que no se trate de un dump del juego original.</label>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="keys">Selecciona el archivo de keys extraído de tu consola Nintendo Switch</label>
-                        <div class="input-group">
-                            <input class="form-control" name="keys" type="text" placeholder="Juego físico: .xci. Juego digital: .nsp"></input>
-                            <div class="input-group-append">
-                                <span onclick="alert('Archivo seleccionado')" class="btn btn-secondary input-group-text" id="examinar">Examinar</span>
+                        <div class="col-md-6">
+                            <label>Selecciona el archivo de keys extraído de tu Nintendo Switch</label>
+                            <div class="input-group">
+                                <input class="form-control" name="keys" type="text" placeholder="keys.txt, keys.dat, keys.ini o prod.keys" id="keysPath" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary input-group-text" id="searchKeys">Examinar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-secondary btn-block" id="patch" style="text-align: center; margin-top: 3vh;" onclick="DownloadPatch()">Aplicar parche</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="col mt-4">
+                    <a id="exit"><h2>Cerrar ventana</h2></a>
                 </div>
-            </form>
-            <div class="col mt-4">
-                <a id="exit"><h2>Cerrar ventana</h2></a>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 enrolladoDer">
+                <img src="img/enrollado2.png" class="w-100 h-100" />
             </div>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 enrolladoDer">
-            <img src="img/enrollado2.png" class="w-100 h-100" />
+    </div>
+
+    <div class="modal fade" id="gameNotFoundModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Juego no reconocido</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>No has seleccionado el juego y/o el archivo de las claves de Nintendo Switch.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<script>
+
+    <div class="modal fade" id="progressModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ProgressTitle"></h5>
+                </div>
+                <div class="modal-body">
+                    <span id="ProgressText"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="errorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Se ha producido un error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="ErrorText"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Parche aplicado con éxito</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>Se ha aplicado el parche con éxito. Ya puedes iniciar el juego.</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const { ipcRenderer } = require("electron");
+
     $(document).ready(function () {
 
         $("#exit").click(function () {
             $("body").addClass('fade-out');
             setTimeout(() => { window.close(); }, 1000);
         });
+
+        $("#searchGame").click(function(evt) {
+            SearchFolder(true);
+        });
+
+        $("#searchKeys").click(function (evt) {
+            SearchFolder(false);
+        });
+
+        ipcRenderer.on("select-game-reply",
+            (sender, path) => {
+                if (`${path}` === "undefined")
+                    return;
+                $("#gamePath").val(`${path}`);
+            });
+
+        ipcRenderer.on("select-keys-reply",
+            (sender, path) => {
+                if (`${path}` === "undefined")
+                    return;
+                $("#keysPath").val(`${path}`);
+            });
     });
-</script>
+
+    function SearchFolder(isGame) {
+        if (isGame)
+            ipcRenderer.send("select-gamePath");
+        else
+            ipcRenderer.send("select-keys");
+    }
+
+    function DownloadPatch() {
+        $.ajax({ url: "@Html.Raw(@Url.Action("CheckGame", "Switch"))" }).done(function(data) {
+            $("#ProgressTitle").text("Descargando el parche.");
+            $("#ProgressText").text("Descargando, espere...");
+            $("#progressModal").modal('show');
+
+            $.ajax({ url: "@Html.Raw(@Url.Action("DownloadPatch", "Switch"))" }).done(function(data) {
+                ExtractPatch();
+
+            }).fail(function (data) {
+                ShowError(data.responseJSON.detail);
+            });
+        }).fail(function () {
+            $("#gameNotFoundModal").modal('show');
+        });
+    }
+
+    function ExtractPatch() {
+        $("#ProgressTitle").text("Extrayendo  el parche.");
+        $("#ProgressText").text("Extrayendo el parche, espere...");
+
+        $.ajax({ url: "@Html.Raw(@Url.Action("ExtractPatch", "Switch"))" }).done(function(data) {
+            PatchingGame();
+        }).fail(function (data) {
+            ShowError(data.responseJSON.detail);
+        });
+    }
+
+    function PatchingGame() {
+        $("#ProgressTitle").text("Instalando la traducción.");
+        $("#ProgressText").text("Parcheando archivos, espere...");
+
+        $.ajax({ url: "@Html.Raw(@Url.Action("PatchGame", "Switch"))" }).done(function(data) {
+            $("#progressModal").modal('hide');
+            $("#successModal").modal('show');
+        }).fail(function (data) {
+            ShowError(data.responseJSON.detail);
+        });
+    }
+
+    function ShowError(error) {
+        $("#progressModal").modal('hide');
+        $("#ErrorText").text(error);
+        $("#errorModal").modal('show');
+    }
+    </script>
 </body>
 </html>
