@@ -215,3 +215,16 @@ body
     background-color:rgba(0,0,0,0);
   }
 }
+
+.modal-content {
+    background-color: lightgoldenrodyellow !important;
+}
+
+.btn-primary {
+    background-color: saddlebrown !important;
+    border-color: saddlebrown !important;
+}
+
+.textButton {
+    cursor: pointer;
+}

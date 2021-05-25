@@ -54,7 +54,11 @@ namespace OkamiPatcher
                 //Icon = "/icon.ico"
             });
 
-            browserWindow.OnReadyToShow += () => browserWindow.Show();
+            browserWindow.OnReadyToShow += () =>
+            {
+                browserWindow.Show();
+                browserWindow.RemoveMenu();
+            };
             browserWindow.SetTitle("Parcheador Okami HD");
         }
     }

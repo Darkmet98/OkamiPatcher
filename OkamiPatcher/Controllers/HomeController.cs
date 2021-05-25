@@ -47,6 +47,7 @@ namespace OkamiPatcher.Controllers
             browserWindow.OnReadyToShow += () =>
             {
                 browserWindow.Show();
+                browserWindow.RemoveMenu();
             };
         }
     }

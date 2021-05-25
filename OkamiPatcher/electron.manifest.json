@@ -17,6 +17,9 @@
     "directories": {
       "output": "../../../bin/Desktop"
     },
+    "win": {
+      "target" : "portable"
+    },
     "extraResources": [
       {
         "from": "./bin",

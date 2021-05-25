@@ -44,14 +44,14 @@
             <form name="eligeCarpeta" class="px-5">
                 <label for="">Selecciona el directorio de instalación del juego</label>
                 <div class="input-group">
-                    <input class="form-control" id="ruta" type="text" placeholder="Ejemplo: C:/User/XXX/Steam/steamaps/ID"/>
+                    <input class="form-control" id="ruta" type="text" placeholder="Ejemplo: C:\Program Files (x86)\Steam\steamapps\common\Okami"/>
                     <div class="input-group-append">
                         <span class="btn btn-secondary input-group-text" id="examinar">Examinar</span>
                     </div>
                 </div>
             </form>
             <div class="col mt-4">
-                <a id="exit"><h2>Cerrar ventana</h2></a>
+                <a id="exit" class="textButton"><h2>Cerrar ventana</h2></a>
             </div>
         </div>
         <div class="enrolladoDer">
@@ -62,8 +62,8 @@
 
 
 
-<div class="modal fade" id="gameNotFoundModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade textJapo" id="gameNotFoundModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Juego no reconocido</h5>
@@ -72,7 +72,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>La carpeta seleccionada no contiene los archivos de Ōkami HD o está dañado.</p>
+                <p>La carpeta seleccionada no contiene los archivos de Ōkami HD o están dañados.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -82,21 +82,31 @@
     </div>
 </div>
 
-<div class="modal fade" id="progressModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade textJapo" id="progressModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ProgressTitle"></h5>
             </div>
             <div class="modal-body">
-                <span id="ProgressText"></span>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-3">
+                            <img alt="" class="text-center align-middle" style="width: 5rem;" id="iconInfo" src="@Url.Content("~/img/progress.gif")" />
+                        </div>
+                        <div class="col-9" style="padding-top: 3vh;">
+                            <span id="ProgressText"></span>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
 </div>
     
-<div class="modal fade" id="errorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade textJapo" id="errorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Se ha producido un error</h5>
@@ -114,8 +124,8 @@
     </div>
 </div>
     
-<div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade textJapo" id="successModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Parche aplicado con éxito</h5>

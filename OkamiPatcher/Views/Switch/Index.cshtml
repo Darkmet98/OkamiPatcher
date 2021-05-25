@@ -45,21 +45,21 @@
                 <img class="img-fluid separador" src="img/separador.png" />
                 <div class="alert alert-danger">Para extraer el juego necesitas mínimo 10GB libres en tu consola Nintendo Switch. En PC necesitas más de 20GB libres para crear el parche del juego.</div>
                 <p>Este parche es compatible para copias originales de Okami para Nintendo Switch, tanto en versión física como en versión digital. Para saber cómo conseguir un dump legítimo de tu copia, lee los siguientes tutoriales:</p>
-                <ol class="text-left">
+                <ul class="text-left">
                     <li>
-                        >>Tutorial para extraer keys de tu Nintendo Switch<<
+                        <a href="https://not-d3fau4.tk/como-dumpear-nsp/" target="_blank">>>Tutorial para extraer NSP y las keys<<</a>
                     </li>
                     <li>
-                        >>Tutorial para extraer NSP y XCI<<
+                        <a href="https://not-d3fau4.tk/como-dumpear-xci/" target="_blank">>>Tutorial para extraer XCI y las keys<<</a>
                     </li>
-                </ol>
+                </ul>
                 <img class="img-fluid separador w-75" src="img/separador.png" />
                 <form name="eligeCarpeta" class="px-5">
                     <div class="row">
                         <div class="col-md-6">
                             <label>Selecciona el dump de tu copia original</label>
                             <div class="input-group">
-                                <input class="form-control" name="juego" type="text" placeholder="Juego físico: .xci. Juego digital: .nsp" id="gamePath" disabled="disabled" />
+                                <input class="form-control" name="juego" type="text" placeholder=".nsp o .xci" id="gamePath" disabled="disabled" />
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-secondary input-group-text" id="searchGame">Examinar</button>
                                 </div>
@@ -82,7 +82,7 @@
                     </div>
                 </form>
                 <div class="col mt-4">
-                    <a id="exit"><h2>Cerrar ventana</h2></a>
+                    <a class="textButton" id="exit"><h2>Cerrar ventana</h2></a>
                 </div>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 enrolladoDer">
@@ -91,8 +91,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="gameNotFoundModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade textJapo" id="gameNotFoundModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Juego no reconocido</h5>
@@ -110,21 +110,30 @@
         </div>
     </div>
 
-    <div class="modal fade" id="progressModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade textJapo" id="progressModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="ProgressTitle"></h5>
                 </div>
                 <div class="modal-body">
-                    <span id="ProgressText"></span>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-3">
+                                <img alt="" class="text-center align-middle" style="width: 5rem;" id="iconInfo" src="@Url.Content("~/img/progress.gif")" />
+                            </div>
+                            <div class="col-9" style="padding-top: 3vh;">
+                                <span id="ProgressText"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="errorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade textJapo" id="errorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Se ha producido un error</h5>
@@ -142,8 +151,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade textJapo" id="successModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Parche aplicado con éxito</h5>
@@ -152,7 +161,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <span>Se ha aplicado el parche con éxito. Ya puedes iniciar el juego.</span>
+                    <p>Se ha generado la carpeta «LayeredFS» en la carpeta donde se encontraba el juego, dependiendo del CFW que uses:</p>
+                    <ul>
+                        <li>Si usas Atmosphère: Mueve el contenido de dentro de la carpeta «LayeredFS» a la siguiente ruta de la tarjeta Micro SD: «atmosphere/contents»</li>
+                        <li>Si usas SX OS: Mueve el contenido de dentro de la carpeta «LayeredFS» a la siguiente ruta de la tarjeta Micro SD: «sxos/title»</li>
+                    </ul>
+                    <p>¡Disfruta del juego y del parche!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -222,16 +236,23 @@
         $("#ProgressTitle").text("Extrayendo  el parche.");
         $("#ProgressText").text("Extrayendo el parche, espere...");
 
-        $.ajax({ url: "@Html.Raw(@Url.Action("ExtractPatch", "Switch"))" }).done(function(data) {
-            PatchingGame();
+        $.ajax({ url: "@Html.Raw(@Url.Action("ExtractPatch", "Switch"))" }).done(function (data) {
+            PatchingGame(data === "piracy");
         }).fail(function (data) {
             ShowError(data.responseJSON.detail);
         });
     }
 
-    function PatchingGame() {
-        $("#ProgressTitle").text("Instalando la traducción.");
-        $("#ProgressText").text("Parcheando archivos, espere...");
+    function PatchingGame(pirate) {
+        if (pirate) {
+            $("#ProgressTitle").text("¡Conque quieres parchear una copia pirata!");
+            $("#ProgressText").html("Amaterasu ha olfateado tu juego y dice que es una copia pirata.<br>Se está aplicando el parche, pero antes de continuar, por favor, considera apoyar a la diosa del sol y a toda la gente que ha trabajado en este juego, comprándolo de forma legal");
+        } else {
+            $("#ProgressTitle").text("Instalando la traducción.");
+            $("#ProgressText").text("Parcheando archivos, espere...");
+
+        }
+        
 
         $.ajax({ url: "@Html.Raw(@Url.Action("PatchGame", "Switch"))" }).done(function(data) {
             $("#progressModal").modal('hide');

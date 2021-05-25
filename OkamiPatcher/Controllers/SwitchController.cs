@@ -16,6 +16,8 @@ namespace OkamiPatcher.Controllers
     {
         public static string Folder { get; set; }
         public static string Keys { get; set; }
+        public static bool ListenerEnabled { get; set; }
+        private bool piracy;
         private string url = "https://tradusquare.es/okami/okamiswitch.zip";
         private string downloadPath = $"{Path.GetTempPath()}{Path.DirectorySeparatorChar}Okamiswitch.zip";
         private static Main patchProcess;
@@ -27,9 +29,14 @@ namespace OkamiPatcher.Controllers
 
         public ActionResult Index()
         {
+            Folder = string.Empty;
+            Keys = string.Empty;
             if (!HybridSupport.IsElectronActive) 
                 return View(this);
-            
+
+            if (ListenerEnabled)
+                return View(this);
+
             Electron.IpcMain.On("select-gamePath", async (args) => {
                 var mainWindow = Electron.WindowManager.BrowserWindows.Last();
                 var options = new OpenDialogOptions
@@ -85,7 +92,7 @@ namespace OkamiPatcher.Controllers
                     Keys = files[0];
                 Electron.IpcMain.Send(mainWindow, "select-keys-reply", files);
             });
-
+            ListenerEnabled = true;
             return View(this);
         }
 
@@ -110,12 +117,17 @@ namespace OkamiPatcher.Controllers
             var outPath = Path.GetDirectoryName(Folder);
             try
             {
-                //patchProcess = new Main(Folder, outPath, downloadPath, Keys, Folder.Contains(".xci") ? titleIds[0] : titleIds [1]);
-                patchProcess = new Main(Folder, outPath, downloadPath, Keys, Folder.Contains(".xci") ? titleIds[0] : titleIds[1], false, false);
+                patchProcess = new Main(Folder, outPath, downloadPath, Keys,
+                    Folder.Contains(".xci") ? titleIds[0] : titleIds[1]);
             }
             catch (Exception e)
             {
-                return Problem($"Se ha producido un error extrayendo los archivos.\n{e.Message}\n{e.StackTrace}");
+                if (e.Message == "Invalid Cert Signature." && e.Message == "Invalid ticket Signature.")
+                    return Problem($"Se ha producido un error extrayendo los archivos.\n{e.Message}\n{e.StackTrace}");
+
+                piracy = true;
+                patchProcess = new Main(Folder, outPath, downloadPath, Keys, Folder.Contains(".xci") ? titleIds[0] : titleIds[1], false, false);
+                return Ok("piracy");
             }
             return Ok();
         }
@@ -138,7 +150,7 @@ namespace OkamiPatcher.Controllers
 
         public ActionResult CheckGame()
         {
-            if (string.IsNullOrWhiteSpace(Folder) && string.IsNullOrWhiteSpace(Keys))
+            if (string.IsNullOrWhiteSpace(Folder) || string.IsNullOrWhiteSpace(Keys))
                 return Problem();
             return Ok();
         }

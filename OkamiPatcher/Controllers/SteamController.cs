@@ -15,13 +15,14 @@ namespace OkamiPatcher.Controllers
     public class SteamController : Controller
     {
         public static string Folder { get; set; }
+        public static bool ListenerEnabled { get; set; }
         private string url = "https://tradusquare.es/okami/okamipc.zip";
         private static Main patchProcess;
         private string downloadPath = $"{Path.GetTempPath()}{Path.DirectorySeparatorChar}Okamipc.zip";
 
         public ActionResult Index()
         {
-            if (HybridSupport.IsElectronActive)
+            if (HybridSupport.IsElectronActive && !ListenerEnabled)
             {
                 Electron.IpcMain.On("select-gameFolder", async (args) => {
                     var mainWindow = Electron.WindowManager.BrowserWindows.Last();
@@ -37,6 +38,7 @@ namespace OkamiPatcher.Controllers
                         Folder = files[0];
                     Electron.IpcMain.Send(mainWindow, "select-game-reply", files);
                 });
+                ListenerEnabled = true;
             }
 
             return View(this);

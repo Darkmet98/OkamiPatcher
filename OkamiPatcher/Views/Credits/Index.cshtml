@@ -23,18 +23,30 @@
         require('popper.js');
         require('bootstrap');</script>
 </head>
-<body class="body_index">
-<div class="container-fluid m-0 p-0 fondo">
-    <nav class="navbar m-0 p-0 w-100 px-2 navbar-expand-lg">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        </button>
-        <a class="navbar-brand" href="https://store.steampowered.com/app/587620/Okami_HD/" target="_blank">
-            <img id="logo" class="logo img-fluid" src="@Url.Content("~/img/Okami_logo.gif")" />
-        </a><span class="textJapo"><h3>en español</h3></span>
-        <a href="https://tradusquare.es" target="_blank"><img class="logo img-fluid" src="https://tradusquare.es/images/logo.webp"></a>
-        <img class="logo img-fluid" src="@Url.Content("~/img/logoSwitchCord.png")">
-    </nav>
-    <h1>TODO</h1>
+<body class="body_index" style="background-repeat: repeat; background-image: url('@Url.Content("~/img/fondoPapel.png")')">
+<div class="container-fluid px-0">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="d-flex align-items-center justify-content-center min-vh-100">
+                    <img class="d-block w-100" src="@Url.Content("~/img/Creditos1.png")">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-flex align-items-center justify-content-center min-vh-100">
+                    <img class="d-block w-100" src="@Url.Content("~/img/Creditos2.png")">
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 </div>
 </body>
 </html>
