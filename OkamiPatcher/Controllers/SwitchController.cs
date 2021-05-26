@@ -125,9 +125,17 @@ namespace OkamiPatcher.Controllers
                 if (e.Message == "Invalid Cert Signature." && e.Message == "Invalid ticket Signature.")
                     return Problem($"Se ha producido un error extrayendo los archivos.\n{e.Message}\n{e.StackTrace}");
 
-                piracy = true;
-                patchProcess = new Main(Folder, outPath, downloadPath, Keys, Folder.Contains(".xci") ? titleIds[0] : titleIds[1], false, false);
-                return Ok("piracy");
+                try
+                {
+                    piracy = true;
+                    patchProcess = new Main(Folder, outPath, downloadPath, Keys, Folder.Contains(".xci") ? titleIds[0] : titleIds[1], false, false);
+                    return Ok("piracy");
+                }
+                catch (Exception exception)
+                {
+                    return Problem($"Se ha producido un error extrayendo los archivos.\n{exception.Message}\n{exception.StackTrace}");
+                }
+               
             }
             return Ok();
         }
