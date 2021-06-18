@@ -18,7 +18,7 @@ namespace OkamiPatcher.Controllers
         public static string Keys { get; set; }
         public static bool ListenerEnabled { get; set; }
         private bool piracy;
-        private string url = "https://tradusquare.es/parches/switchcord/okami/okamiswitch.zip";
+        private string url = "https://github.com/TraduSquare/Parches/releases/download/Okami/okamiswitch.zip";
         private string downloadPath = $"{Path.GetTempPath()}{Path.DirectorySeparatorChar}Okamiswitch.zip";
         private static Main patchProcess;
 

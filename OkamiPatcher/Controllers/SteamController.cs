@@ -16,7 +16,7 @@ namespace OkamiPatcher.Controllers
     {
         public static string Folder { get; set; }
         public static bool ListenerEnabled { get; set; }
-        private string url = "https://tradusquare.es/parches/switchcord/okami/okamipc.zip";
+        private string url = "https://github.com/TraduSquare/Parches/releases/download/Okami/okamipc.zip";
         private static Main patchProcess;
         private string downloadPath = $"{Path.GetTempPath()}{Path.DirectorySeparatorChar}Okamipc.zip";
 
